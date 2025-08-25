@@ -9,8 +9,9 @@ public class Program
     public static void Main(string[] args)
     {
         var services = new ServiceCollection();
-        services.AddLogging(); // Agrega soporte para ILoggerFactory
+        services.AddLogging(); 
         services.AddTransient<IBookService, BookService>();
+        services.AddTransient<IBookRepository, FileRepository>();
         services.AddTransient<IManager, ConsoleManager>();
         services.AddSingleton<IMainMenu, ConsoleMenu>();
         services.AddSingleton<App>();
@@ -20,6 +21,5 @@ public class Program
         var app = serviceProvider.GetService<App>();
         app.Run();
 
-        //Run application
     }
 }

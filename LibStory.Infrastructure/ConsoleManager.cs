@@ -10,7 +10,6 @@ namespace LibStory.Infrastructure
 {
     public class ConsoleManager : IManager
     {
-
         public void PrintBook(Book book)
         {
             Console.WriteLine("Book Details:");
@@ -20,6 +19,15 @@ namespace LibStory.Infrastructure
             Console.WriteLine(book.Year != 0 ? $"Book Year:{book.Year}" : "Book Year: N/A");
             Console.WriteLine(book.Author != null ? $"Book Author:{book.Author}" : "Book Author: N/A");
             Console.WriteLine(book.Publisher != null ? $"Book Publisher:{book.Publisher}" : "Book Publisher: N/A");
+        }
+
+        public void PrintBooks(List<Book> books)
+        {
+            foreach (var book in books)
+            {
+                PrintBook(book);
+                Console.WriteLine(new string('-', 20));
+            }
         }
     }
 }
