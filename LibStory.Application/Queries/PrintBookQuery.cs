@@ -1,0 +1,29 @@
+﻿using LibStory.Application.Interfaces;
+using LibStory.Domain.Models;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LibStory.Application.Queries
+{
+    public class PrintBookQuery : IRequest<bool>
+    {
+        public Book bookToPrint { get; set; }
+        public class PrintBookQueryResponse : IRequestHandler<PrintBookQuery, bool>
+        {
+            private readonly IManager _manager;
+            public PrintBookQueryResponse(IManager manager)
+            {
+                _manager = manager;
+            }
+            public Task<bool> Handle(PrintBookQuery request, CancellationToken cancellationToken)
+            {
+                _manager.PrintBook(request.bookToPrint);
+                return Task.FromResult(true);
+            }
+        }
+    }
+}
