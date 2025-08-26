@@ -32,7 +32,6 @@ namespace LibStory.Infrastructure
                     File.WriteAllText(path, "[]");
                 }
                 return path;
-
             }
         }
         public FileRepository()
@@ -58,6 +57,7 @@ namespace LibStory.Infrastructure
 
         public Task<bool> DeleteBook(int id)
         {
+            //TODO
             throw new NotImplementedException();
         }
 
@@ -68,11 +68,13 @@ namespace LibStory.Infrastructure
 
         public Task<Book?> GetBookById(int id)
         {
+            //TODO
             throw new NotImplementedException();
         }
 
         public Task<bool> UpdateBook(Book book)
         {
+            //TODO
             throw new NotImplementedException();
         }
         private List<Book> LoadBooksFromFile()
