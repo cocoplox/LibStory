@@ -14,7 +14,7 @@ namespace LibStory.Tests
             var expectedBook = new Domain.Models.Book()
             {
                 Title = "Test Book",
-                Sinapsis = "This is a test book",
+                Sinopsis = "This is a test book",
                 Pages = 100,
                 Year = 2023,
                 Author = "Test Author",
@@ -33,7 +33,7 @@ namespace LibStory.Tests
             // Assert
             Assert.IsNotNull(resultBook);
             Assert.AreEqual(expectedBook.Title, resultBook.Title);
-            Assert.AreEqual(expectedBook.Sinapsis, resultBook.Sinapsis);
+            Assert.AreEqual(expectedBook.Sinopsis, resultBook.Sinapsis);
             Assert.AreEqual(expectedBook.Pages, resultBook.Pages);
             Assert.AreEqual(expectedBook.Year, resultBook.Year);
             Assert.AreEqual(expectedBook.Author, resultBook.Author);

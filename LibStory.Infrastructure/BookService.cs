@@ -29,7 +29,7 @@ namespace LibStory.Infrastructure
             Book book = new Book
             {
                 Title = title,
-                Sinapsis = sinapsis,
+                Sinopsis = sinapsis,
                 Author = author,
                 Publisher = publisher,
                 Pages = (int)pages,

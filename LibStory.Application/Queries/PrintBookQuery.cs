@@ -3,7 +3,9 @@ using LibStory.Domain.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,9 +23,11 @@ namespace LibStory.Application.Queries
             }
             public Task<bool> Handle(PrintBookQuery request, CancellationToken cancellationToken)
             {
+                if(request?.bookToPrint is null) { return Task.FromResult(false); }
                 _manager.PrintBook(request.bookToPrint);
                 return Task.FromResult(true);
             }
+
         }
     }
 }

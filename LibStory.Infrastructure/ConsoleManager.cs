@@ -14,7 +14,7 @@ namespace LibStory.Infrastructure
         {
             Console.WriteLine("Book Details:");
             Console.WriteLine($"Book Title:{book.Title}");
-            Console.WriteLine($"Book Sinapsis:{book.Sinapsis}");
+            Console.WriteLine($"Book Sinapsis:{book.Sinopsis}");
             Console.WriteLine(book.Pages != 0 ? $"Book Pages:{book.Pages}" : "Book Pages: N/A");
             Console.WriteLine(book.Year != 0 ? $"Book Year:{book.Year}" : "Book Year: N/A");
             Console.WriteLine(book.Author != null ? $"Book Author:{book.Author}" : "Book Author: N/A");
@@ -23,11 +23,11 @@ namespace LibStory.Infrastructure
 
         public void PrintBooks(List<Book> books)
         {
-            foreach (var book in books)
+            books.ForEach(e =>
             {
-                PrintBook(book);
+                PrintBook(e);
                 Console.WriteLine(new string('-', 20));
-            }
+            });
         }
     }
 }

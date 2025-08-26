@@ -11,7 +11,8 @@ namespace LibStory.Domain.Models
     {
         [Required]
         public string Title { get; set; }
-        public string Sinapsis { get; set; }
+        //private int Id { get; set; }
+        public string Sinopsis { get; set; }
         public int Pages { get; set; }
         public int Year { get; set; }
         public string Author { get; set; }
