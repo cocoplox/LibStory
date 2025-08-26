@@ -1,6 +1,7 @@
 ﻿using LibStory.Application.Interfaces;
 using LibStory.Application.Queries;
 using LibStory.Domain.Enums;
+using LibStory.Infrastructure;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -31,8 +32,10 @@ namespace LibStory
                     await _mediatr.Send(new AddBookQuery());
                     break;
                 case MenuChoice.PrintBook:
-                    // Pedimos que libro se quere ( GetAllBooks?)
                     await _mediatr.Send(new PrintBookQuery() { bookToPrint = new Domain.Models.Book() { Title = "Test"} });
+                    break;
+                case MenuChoice.ShowAllBooks:
+                    await _mediatr.Send(new PrintAllBooksQuery());
                     break;
             }
         }

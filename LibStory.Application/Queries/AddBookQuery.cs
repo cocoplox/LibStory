@@ -9,19 +9,18 @@ using System.Threading.Tasks;
 
 namespace LibStory.Application.Queries
 {
-    public class AddBookQuery : IRequest<Book>
+    public class AddBookQuery : IRequest<bool>
     {
-        public class AddBookQueryHandler : IRequestHandler<AddBookQuery, Book>
+        public class AddBookQueryHandler : IRequestHandler<AddBookQuery, bool>
         {
             private readonly IBookService _bookService;
             public AddBookQueryHandler(IBookService bookService)
             {
                 _bookService = bookService;
             }
-            public Task<Book> Handle(AddBookQuery request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(AddBookQuery request, CancellationToken cancellationToken)
             {
-                var book = _bookService.CreateBook();
-                return Task.FromResult(book);
+                return await _bookService.CreateBook();
             }
         }
     }

@@ -11,5 +11,6 @@ namespace LibStory.Application.Interfaces
     public interface IManager
     {
         void PrintBook(Book book);
+        void PrintBooks(List<Book> books);
     }
 }

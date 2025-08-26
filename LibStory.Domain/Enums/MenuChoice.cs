@@ -11,5 +11,6 @@ namespace LibStory.Domain.Enums
         CreateBook = 1,
         SaveBook = 2,
         PrintBook = 3,
+        ShowAllBooks = 4,
     }
 }
