@@ -16,26 +16,8 @@ namespace LibStory.Infrastructure
         {
             _bookRepository = bookRepository;
         }
-        public async Task<bool> CreateBook()
+        public async Task<bool> SaveBook(Book book)
         {
-            string title = GetBasicInfo("Title");
-            string sinapsis = GetBasicInfo("Sinapsis");
-            string author = GetBasicInfo("Author");
-            string publisher = GetBasicInfo("Publisher");
-            float pages = GetBasicNumberInfo("Pages");
-            float rating = GetBasicNumberInfo("Rating");
-            float year = GetBasicNumberInfo("Year");
-
-            Book book = new Book
-            {
-                Title = title,
-                Sinopsis = sinapsis,
-                Author = author,
-                Publisher = publisher,
-                Pages = (int)pages,
-                Rating = rating,
-                Year = (int)year
-            };
             bool correct = await _bookRepository.AddBookAsync(book);
             if (!correct)
             {
@@ -48,29 +30,8 @@ namespace LibStory.Infrastructure
 
         public async Task<List<Book>> GetAllBooks()
         {
-            List<Book> books = await _bookRepository.GetAllBooks();
-            return books;
+            var books = await _bookRepository.GetAllBooks();
+            return books.Select(e => (Book)e).ToList();
         }
-
-        private string GetBasicInfo(string infoName)
-        {
-            Console.Write($"Enter the {infoName}: ");
-            return Console.ReadLine() ?? string.Empty;
-        }
-        private float GetBasicNumberInfo(string numerInfo)
-        {
-            Console.Write($"Enter the {numerInfo}: ");
-            numerInfo = Console.ReadLine() ?? string.Empty;
-            if (float.TryParse(numerInfo, out float number))
-            {
-                return number;
-            }
-            else
-            {
-                Console.WriteLine("Invalid number, please try again.");
-                return GetBasicNumberInfo(numerInfo);
-            }
-        }
-
     }
 }

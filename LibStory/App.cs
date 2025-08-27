@@ -23,26 +23,22 @@ namespace LibStory
         }
         public async Task Run()
         {
-            do
+            //TODO: Graphic UI :(
+            _menu.DrawMainMenu();
+            var choice = _menu.GetChoice();
+            switch (choice)
             {
-                //TODO: Graphic UI :(
-                _menu.DrawMainMenu();
-                var choice = _menu.GetChoice();
-                switch (choice)
-                {
-                    case MenuChoice.CreateBook:
-                        await _mediatr.Send(new AddBookQuery());
-                        break;
-                    case MenuChoice.PrintBook:
-                        await _mediatr.Send(new PrintBookQuery() { bookToPrint = new Domain.Models.Book() { Title = "Test" } });
-                        break;
-                    case MenuChoice.ShowAllBooks:
-                        await _mediatr.Send(new PrintAllBooksQuery());
-                        break;
-                }
-                //Confirmación para continuar o salir
+                case MenuChoice.CreateBook:
+                    await _mediatr.Send(new AddBookQuery());
+                    break;
+                case MenuChoice.PrintBook:
+                    await _mediatr.Send(new PrintBookQuery() { bookToPrint = new Domain.Models.Book() { Title = "Test" } });
+                    break;
+                case MenuChoice.ShowAllBooks:
+                    await _mediatr.Send(new PrintAllBooksQuery());
+                    break;
             }
-            while (true);
+            //Confirmación para continuar o salir
         }
     }
 }

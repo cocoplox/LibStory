@@ -9,7 +9,7 @@ namespace LibStory.Application.Interfaces
 {
     public interface IBookService
     {
-        Task<bool> CreateBook();
+        Task<bool> SaveBook(Book book);
         Task<List<Book>> GetAllBooks();
         //bool SaveBook(Book book);
 

@@ -14,13 +14,16 @@ namespace LibStory.Application.Queries
         public class AddBookQueryHandler : IRequestHandler<AddBookQuery, bool>
         {
             private readonly IBookService _bookService;
-            public AddBookQueryHandler(IBookService bookService)
+            private readonly IManager _manager;
+            public AddBookQueryHandler(IBookService bookService, IManager manager)
             {
                 _bookService = bookService;
+                _manager = manager;
             }
             public async Task<bool> Handle(AddBookQuery request, CancellationToken cancellationToken)
             {
-                return await _bookService.CreateBook();
+                var bookToSave = _manager.CreateBook();
+                return await _bookService.SaveBook(bookToSave);
             }
         }
     }
