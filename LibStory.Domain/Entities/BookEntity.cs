@@ -1,4 +1,4 @@
-﻿using LibStory.Domain.Entities;
+﻿using LibStory.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibStory.Domain.Models
+namespace LibStory.Domain.Entities
 {
-    public class Book
+    public class BookEntity
     {
+        [Required]
+        public long Id { get; set; }
         public string? Title { get; set; }
         public string? Sinopsis { get; set; }
         public int? Pages { get; set; }
@@ -17,15 +19,15 @@ namespace LibStory.Domain.Models
         public string? Author { get; set; }
         public string? Publisher { get; set; }
         public float? Rating { get; set; }
-        public static explicit operator Book(BookEntity entity) => new Book
+        public static explicit operator BookEntity(Book model) => new BookEntity
         {
-            Title = entity.Title,
-            Sinopsis = entity.Sinopsis,
-            Pages = entity.Pages,
-            Year = entity.Year,
-            Author = entity.Author,
-            Publisher = entity.Publisher,
-            Rating = entity.Rating
-        }   ;
+            Title = model.Title,
+            Sinopsis = model.Sinopsis,
+            Pages = model.Pages,
+            Year = model.Year,
+            Author = model.Author,
+            Publisher = model.Publisher,
+            Rating = model.Rating
+        };
     }
 }

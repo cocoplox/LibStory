@@ -7,11 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.Json;
+using LibStory.Domain.Entities;
 
 namespace LibStory.Infrastructure
 {
     public class FileRepository : IBookRepository
     {
+        //LEGACY
+        //Esta clase se puede usar para hacer test, quizas en desarrollo, actualmente se usa SqlLite -> SqlLiteRepository
         private const string _fileName = "Library.json";
         private const string _directoryName = "LibStoryData";
         private  List<Book> _books;
@@ -82,6 +85,15 @@ namespace LibStory.Infrastructure
             string json = File.ReadAllText(_filePath);
             return  JsonSerializer.Deserialize<List<Book>>(json) ?? new List<Book>();
         }
-        
+
+        Task<List<BookEntity>> IBookRepository.GetAllBooks()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<BookEntity>> GetBooksByTitle(string title)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

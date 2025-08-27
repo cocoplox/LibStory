@@ -10,6 +10,7 @@ namespace LibStory.Application.Interfaces
 {
     public interface IManager
     {
+        Book CreateBook();
         void PrintBook(Book book);
         void PrintBooks(List<Book> books);
     }
