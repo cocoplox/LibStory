@@ -11,7 +11,7 @@ namespace LibStory.Tests.Repositories
     {
         private SqlLiteDbContext _context;
         private IBookRepository _bookRepository;
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             var options = new DbContextOptionsBuilder<SqlLiteDbContext>()
@@ -52,6 +52,20 @@ namespace LibStory.Tests.Repositories
             Assert.That(1 == filteredBooks.Count);
             Assert.That(filteredBooks.All(e => e.Title != null));
             Assert.That(filteredBooks.All(e => e.Title!.Contains(title)));
+        }
+        [Test]
+        public async Task Should_Delete_By_Id()
+        {
+            //Arrange
+            var booksBefore = await _bookRepository.GetAllBooks();
+            var bookToDelete = booksBefore.First();
+            //Act
+            var result = await _bookRepository.DeleteBook((int)bookToDelete.Id);
+            var booksAfter = await _bookRepository.GetAllBooks();
+            //Assert
+            Assert.That(result);
+            Assert.That(booksAfter.Count == booksBefore.Count - 1);
+            Assert.That(booksAfter.All(e => e.Id != bookToDelete.Id));
         }
         [OneTimeTearDown]
         public void CleanUp()

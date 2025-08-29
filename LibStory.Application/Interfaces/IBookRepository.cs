@@ -15,6 +15,6 @@ namespace LibStory.Application.Interfaces
         Task<List<BookEntity>> GetBooksByTitle(string title);
         Task<Book?> GetBookById(int id);
         Task<bool> UpdateBook(Book book);
-        Task<bool> DeleteBook(int id);
+        Task<bool> DeleteBook(long id);
     }
 }

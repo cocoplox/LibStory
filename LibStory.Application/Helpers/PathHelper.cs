@@ -15,7 +15,6 @@ namespace LibStory.Application.Helpers
             if(!Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
             return Path.Combine(folder, "LibStory.db");
-
         }
     }
 }

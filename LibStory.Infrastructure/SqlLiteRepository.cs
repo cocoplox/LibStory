@@ -3,11 +3,6 @@ using LibStory.Domain.Entities;
 using LibStory.Domain.Models;
 using LibStory.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibStory.Infrastructure
 {
@@ -18,9 +13,11 @@ namespace LibStory.Infrastructure
         {
             _context = context;
         }
+        
         public Task<bool> AddBookAsync(Book book)
         {
-            _context.Add<BookEntity>((BookEntity)book);
+            _context.Books.Add((BookEntity)book);
+                
             try
             {
                 _context.SaveChanges();
@@ -34,10 +31,20 @@ namespace LibStory.Infrastructure
             return Task.FromResult(true);
         }
 
-        public Task<bool> DeleteBook(int id)
+        public async Task<bool> DeleteBook(long id)
         {
-            //TODO
-            throw new NotImplementedException();
+            try
+            {
+                var bookToRemove = await _context.Books.FindAsync(id);
+                _context.Books.Remove(bookToRemove!);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al eliminar en base de datos: " + ex.Message);
+                return false;
+            }
+            return true;
         }
 
         public Task<List<BookEntity>> GetAllBooks()
@@ -47,10 +54,10 @@ namespace LibStory.Infrastructure
             return Task.FromResult(books);
         }
 
-        public Task<Book?> GetBookById(int id)
+        public async Task<Book?> GetBookById(int id)
         {
-            //TODO
-            throw new NotImplementedException();
+            var book = await _context.Books.FindAsync(id);
+            return (Book)book;
         }
 
         public async Task<List<BookEntity>> GetBooksByTitle(string title)
@@ -64,8 +71,16 @@ namespace LibStory.Infrastructure
 
         public Task<bool> UpdateBook(Book book)
         {
-            //TODO
-            throw new NotImplementedException();
+            try
+            {
+                _context.Books.Update((BookEntity)book);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al actualizar en base de datos: " + ex.Message);
+                return Task.FromResult(false);
+            }
+            return Task.FromResult(true);
         }
     }
 }
