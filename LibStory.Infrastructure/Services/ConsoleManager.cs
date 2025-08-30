@@ -29,6 +29,17 @@ namespace LibStory.Infrastructure.Services
             return book;
         }
 
+        public RecordDTO CreateRecord()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetResponse(string message)
+        {
+            Console.WriteLine(message);
+            return Console.ReadLine() ?? string.Empty;
+        }
+
         public void PrintBook(BookDTO book)
         {
             Console.WriteLine("Book Details:");
@@ -48,6 +59,12 @@ namespace LibStory.Infrastructure.Services
                 Console.WriteLine(new string('-', 20));
             });
         }
+
+        public void PrinteMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
+
         private string GetBasicInfo(string infoName)
         {
             Console.Write($"Enter the {infoName}: ");

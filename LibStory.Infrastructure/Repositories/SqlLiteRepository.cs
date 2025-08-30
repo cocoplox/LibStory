@@ -48,10 +48,9 @@ namespace LibStory.Infrastructure.Repositories
             return true;
         }
 
-        public Task<List<Book>> GetAllBooks()
+        public  Task<IEnumerable<Book>> GetAllBooks()
         {
-            var books = new List<Book>();
-            books = _context.Book.ToList();
+            var books = _context.Book.AsEnumerable();
             return Task.FromResult(books);
         }
 
@@ -61,13 +60,14 @@ namespace LibStory.Infrastructure.Repositories
             return book;
         }
 
-        public async Task<List<Book>> GetBooksByTitle(string title)
+        public async Task<IEnumerable<Book>> GetBooksByTitle(string title)
         {
-            var fileredBooks = await _context.Book
+            var filteredBooks = new List<Book>();
+            filteredBooks = await _context.Book
                 .Where(e => e.Title != null)
                 .Where(e => e.Title!.ToLower().Contains(title.ToLower()))
                 .ToListAsync();
-            return fileredBooks;
+            return filteredBooks;
         }
 
         public Task<bool> UpdateBook(Book book)
@@ -83,5 +83,6 @@ namespace LibStory.Infrastructure.Repositories
             }
             return Task.FromResult(true);
         }
+
     }
 }

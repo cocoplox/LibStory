@@ -32,7 +32,7 @@ namespace LibStory.Infrastructure
             }
             while (true);
         }
-        public string GetBookByTitle()
+        public string GetBookTitle()
         {
             Console.WriteLine("Enter the book title to search:");
             return Console.ReadLine() ?? string.Empty;

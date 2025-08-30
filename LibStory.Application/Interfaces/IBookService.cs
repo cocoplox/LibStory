@@ -12,7 +12,7 @@ namespace LibStory.Application.Interfaces
     {
         Task<bool> SaveBook(BookDTO book);
         Task<List<BookDTO>> GetAllBooks();
-        Task<IEnumerable<BookDTO?>> GetBookByTitle(string title);
+        Task<List<BookDTO>> GetBookByTitle(string title);
 
     }
-}
+} 

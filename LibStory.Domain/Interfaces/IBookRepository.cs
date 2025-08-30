@@ -10,8 +10,8 @@ namespace LibStory.Application.Interfaces
     public interface IBookRepository
     {
         Task<bool> AddBookAsync(Book book);
-        Task<List<Book>> GetAllBooks();
-        Task<List<Book>> GetBooksByTitle(string title);
+        Task<IEnumerable<Book>> GetAllBooks();
+        Task<IEnumerable<Book>> GetBooksByTitle(string title);
         Task<Book?> GetBookById(int id);
         Task<bool> UpdateBook(Book book);
         Task<bool> DeleteBook(long id);

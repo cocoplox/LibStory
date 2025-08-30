@@ -1,4 +1,5 @@
-﻿using LibStory.Application.Interfaces;
+﻿using LibStory.Application.DTOs;
+using LibStory.Application.Interfaces;
 using LibStory.Domain.Models;
 using MediatR;
 using System;
@@ -9,30 +10,20 @@ using System.Threading.Tasks;
 
 namespace LibStory.Application.Queries
 {
-    public class BookByTitleQuery : IRequest<Unit>
+    public class BookByTitleQuery : IRequest<List<BookDTO>>
     {
         public string Title { get; set; }
-        public class BookByTitleQueryHandler : IRequestHandler<BookByTitleQuery, Unit>
+        public class BookByTitleQueryHandler : IRequestHandler<BookByTitleQuery, List<BookDTO>>
         {
             private readonly IBookService _bookService;
-            private readonly IManager _manager;
-            public BookByTitleQueryHandler(IBookService bookService, IManager manager)
+            public BookByTitleQueryHandler(IBookService bookService)
             {
                 _bookService = bookService;
-                _manager = manager;
             }
-            public async Task<Unit> Handle(BookByTitleQuery request, CancellationToken cancellationToken)
+            public async Task<List<BookDTO>> Handle(BookByTitleQuery request, CancellationToken cancellationToken)
             {
                 var books = await _bookService.GetBookByTitle(request.Title);
-                if (books == null || !books.Any())
-                {
-                    Console.WriteLine("no books found with that title.");
-                }
-                else
-                {
-                    _manager.PrintBooks(books.ToList()!);
-                }
-                return Unit.Value;
+                return books.ToList();
             }
 
         }

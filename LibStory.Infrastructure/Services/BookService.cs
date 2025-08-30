@@ -20,25 +20,19 @@ namespace LibStory.Infrastructure.Services
         }
         public async Task<bool> SaveBook(BookDTO book)
         {
-            bool correct = await _bookRepository.AddBookAsync(book.ToEntity());
-            if (!correct)
-            {
-                Console.WriteLine("Error saving the book, please try again.");
-                return correct;
-            }
-            Console.WriteLine("Book created successfully.");
-            return correct;
-          }
+            return await _bookRepository.AddBookAsync(book.ToEntity());
+        }
         public async Task<List<BookDTO>> GetAllBooks()
         {
             var books = await _bookRepository.GetAllBooks();
             return books.Select(e => e.ToDto()).ToList();
         }
 
-        public async Task<IEnumerable<BookDTO?>> GetBookByTitle(string title)
+        public async Task<List<BookDTO>> GetBookByTitle(string title)
         {
-            var booksEntities = await _bookRepository.GetBooksByTitle(title);
-            return  booksEntities.Select(e => e.ToDto());
+            var bookEntities = await _bookRepository.GetBooksByTitle(title) ?? new List<Book>();
+            var bookDto = bookEntities.Select(e => e.ToDto());
+            return bookDto.ToList();
         }
     }
 }

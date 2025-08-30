@@ -2,6 +2,7 @@
 using LibStory.Domain.Data;
 using LibStory.Domain.Models;
 using LibStory.Infrastructure;
+using LibStory.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibStory.Tests.Repositories

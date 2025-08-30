@@ -1,4 +1,5 @@
-﻿using LibStory.Domain.Enums;
+﻿using LibStory.Application.DTOs;
+using LibStory.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace LibStory.Application.Interfaces
 {
-    public interface IMainMenu
+    public interface IRecordService
     {
-        void DrawMainMenu();
-        MenuChoice GetChoice();
-        string GetBookTitle();
-
+        Task<bool> AddRecordAsync(Record recordDto);
     }
 }

@@ -1,4 +1,5 @@
-﻿using LibStory.Application.Interfaces;
+﻿using LibStory.Application.Commands;
+using LibStory.Application.Interfaces;
 using LibStory.Application.Queries;
 using LibStory.Domain.Enums;
 using LibStory.Infrastructure;
@@ -16,34 +17,53 @@ namespace LibStory
     {
         private readonly IMediator _mediatr;
         private readonly IMainMenu _menu;
-        public App(IMediator mediatr, IMainMenu menu)
+        private readonly IManager _manager;
+        private readonly Dictionary<MenuChoice, Func<Task>> _menuActions;
+        public App(IMediator mediatr, IMainMenu menu , IManager manager)
         {
             _mediatr = mediatr;
             _menu = menu;
+            _manager = manager;
+            _menuActions = new Dictionary<MenuChoice, Func<Task>>()
+            {
+                { MenuChoice.CreateBook, CreateBookAsync },
+                { MenuChoice.ShowAllBooks, ShowAllBooksAsync },
+                { MenuChoice.SearchBookByTitle, SearchBookByTitleAsync },
+                { MenuChoice.CreateRecord, CreateRecordAsync }
+            };
         }
         public async Task Run()
         {
-            //TODO: Graphic UI :(
             _menu.DrawMainMenu();
             var choice = _menu.GetChoice();
-            switch (choice)
+            _menuActions.TryGetValue(choice, out var action);
+            if(action is not null)
             {
-                case MenuChoice.CreateBook:
-                    await _mediatr.Send(new AddBookQuery());
-                    break;
-                //case MenuChoice.PrintBook:
-                //    await _mediatr.Send(new PrintBookQuery() { bookToPrint = new Domain.Models.Book() { Title = "Test" } });
-                //    break;
-                case MenuChoice.ShowAllBooks:
-                    await _mediatr.Send(new PrintAllBooksQuery());
-                    break;
-                case MenuChoice.SearchBookByTitle:
-                    //Tenemos que insertar el titulo de alguna manera?
-                    var bookTitle = _menu.GetBookByTitle();
-                    var pepe = await _mediatr.Send(new BookByTitleQuery() { Title = bookTitle});
-                    break;
+                await action();
             }
-            //Confirmación para continuar o salir
+        }
+        private async Task CreateBookAsync()
+        {
+            var response = await _mediatr.Send(new AddBookCommand());
+            if(response)
+                _manager.PrinteMessage("Libro creado con exito");
+            else
+                _manager.PrinteMessage("No se ha podido crear el libro");
+        }
+        private async Task ShowAllBooksAsync()
+        {
+            var response = await _mediatr.Send(new GetAllBooksQuery());
+            _manager.PrintBooks(response);
+        }
+        private async Task SearchBookByTitleAsync()
+        {
+            var title = _manager.GetResponse("Introduce el titulo del libro a buscar: ");
+            var response = await _mediatr.Send(new BookByTitleQuery() { Title = title });
+            _manager.PrintBooks(response);
+        }
+        private async Task CreateRecordAsync()
+        {
+            //TODO
         }
     }
 }

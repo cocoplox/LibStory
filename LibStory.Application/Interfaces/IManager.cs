@@ -14,5 +14,9 @@ namespace LibStory.Application.Interfaces
         BookDTO CreateBook();
         void PrintBook(BookDTO book);
         void PrintBooks(List<BookDTO> books);
+        RecordDTO CreateRecord();
+        void PrinteMessage(string message);
+        string GetResponse(string message);
+        
     }
 }

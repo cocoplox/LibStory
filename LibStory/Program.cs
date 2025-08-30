@@ -4,6 +4,7 @@ using LibStory.Application.Helpers;
 using LibStory.Application.Interfaces;
 using LibStory.Application.Queries;
 using LibStory.Domain.Data;
+using LibStory.Domain.Interfaces;
 using LibStory.Infrastructure;
 using LibStory.Infrastructure.Repositories;
 using LibStory.Infrastructure.Services;
@@ -23,6 +24,7 @@ public class Program
         services.AddTransient<IBookRepository, SqlLiteRepository>();
         services.AddTransient<IManager, ConsoleManager>();
         services.AddSingleton<IMainMenu, ConsoleMenu>();
+        services.AddSingleton<IUserRepository, UserRepository>();
         services.AddSingleton<App>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<AppLayerDummy>());
         services.AddDbContext<SqlLiteContext>(opt =>

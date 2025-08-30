@@ -7,20 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibStory.Application.Queries
+namespace LibStory.Application.Commands
 {
-    public class AddBookQuery : IRequest<bool>
+    public class AddBookCommand : IRequest<bool>
     {
-        public class AddBookQueryHandler : IRequestHandler<AddBookQuery, bool>
+        public class AddBookCommandHandler : IRequestHandler<AddBookCommand, bool>
         {
             private readonly IBookService _bookService;
             private readonly IManager _manager;
-            public AddBookQueryHandler(IBookService bookService, IManager manager)
+            public AddBookCommandHandler(IBookService bookService, IManager manager)
             {
                 _bookService = bookService;
                 _manager = manager;
             }
-            public async Task<bool> Handle(AddBookQuery request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(AddBookCommand request, CancellationToken cancellationToken)
             {
                 var bookToSave = _manager.CreateBook();
                 return await _bookService.SaveBook(bookToSave);
