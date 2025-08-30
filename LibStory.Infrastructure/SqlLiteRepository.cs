@@ -64,7 +64,7 @@ namespace LibStory.Infrastructure
         {
             var fileredBooks = await _context.Books
                 .Where(e => e.Title != null)
-                .Where(e => e.Title!.Contains(title))
+                .Where(e => e.Title!.ToLower().Contains(title.ToLower()))
                 .ToListAsync();
             return fileredBooks;
         }

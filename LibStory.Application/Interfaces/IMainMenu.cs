@@ -11,6 +11,7 @@ namespace LibStory.Application.Interfaces
     {
         void DrawMainMenu();
         MenuChoice GetChoice();
+        string GetBookByTitle();
 
     }
 }

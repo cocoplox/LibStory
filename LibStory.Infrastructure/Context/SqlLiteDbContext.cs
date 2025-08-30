@@ -18,10 +18,6 @@ namespace LibStory.Infrastructure.Context
             modelBuilder.Entity<BookEntity>()
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
-            //modelBuilder.Entity<BookEntity>()
-            //    .Property(e => e.Sinopsis)
-                
-            
         }
     }
 }

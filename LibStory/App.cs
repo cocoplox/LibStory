@@ -37,6 +37,11 @@ namespace LibStory
                 case MenuChoice.ShowAllBooks:
                     await _mediatr.Send(new PrintAllBooksQuery());
                     break;
+                case MenuChoice.SearchBookByTitle:
+                    //Tenemos que insertar el titulo de alguna manera?
+                    var bookTitle = _menu.GetBookByTitle();
+                    var pepe = await _mediatr.Send(new BookByTitleQuery() { Title = bookTitle});
+                    break;
             }
             //Confirmación para continuar o salir
         }

@@ -17,6 +17,7 @@ namespace LibStory.Infrastructure
             Console.WriteLine("2. Save Book");
             Console.WriteLine("3. PrintBook");
             Console.WriteLine("4. PrintAllBooks");
+            Console.WriteLine("5. SearchBook");
         }
 
         public MenuChoice GetChoice()
@@ -30,6 +31,11 @@ namespace LibStory.Infrastructure
                 }
             }
             while (true);
+        }
+        public string GetBookByTitle()
+        {
+            Console.WriteLine("Enter the book title to search:");
+            return Console.ReadLine() ?? string.Empty;
         }
     }
 }

@@ -27,11 +27,16 @@ namespace LibStory.Infrastructure
             Console.WriteLine("Book created successfully.");
             return correct;
           }
-
         public async Task<List<Book>> GetAllBooks()
         {
             var books = await _bookRepository.GetAllBooks();
             return books.Select(e => (Book)e).ToList();
+        }
+
+        public async Task<IEnumerable<Book?>> GetBookByTitle(string title)
+        {
+            var booksEntities = await _bookRepository.GetBooksByTitle(title);
+            return  booksEntities.Select(e => (Book)e);
         }
     }
 }
