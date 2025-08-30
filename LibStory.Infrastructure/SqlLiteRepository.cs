@@ -1,22 +1,23 @@
-﻿using LibStory.Application.Interfaces;
-using LibStory.Domain.Entities;
+﻿using LibStory.Application.DTOs;
+using LibStory.Application.Interfaces;
+using LibStory.Application.Maps;
+using LibStory.Domain.Data;
 using LibStory.Domain.Models;
-using LibStory.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibStory.Infrastructure
 {
     public class SqlLiteRepository : IBookRepository
     {
-        private readonly SqlLiteDbContext _context;
-        public SqlLiteRepository(SqlLiteDbContext context)
+        private readonly SqlLiteContext _context;
+        public SqlLiteRepository(SqlLiteContext context)
         {
             _context = context;
         }
         
         public Task<bool> AddBookAsync(Book book)
         {
-            _context.Books.Add((BookEntity)book);
+            _context.Book.Add(book);
                 
             try
             {
@@ -35,8 +36,8 @@ namespace LibStory.Infrastructure
         {
             try
             {
-                var bookToRemove = await _context.Books.FindAsync(id);
-                _context.Books.Remove(bookToRemove!);
+                var bookToRemove = await _context.Book.FindAsync(id);
+                _context.Book.Remove(bookToRemove!);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -47,22 +48,22 @@ namespace LibStory.Infrastructure
             return true;
         }
 
-        public Task<List<BookEntity>> GetAllBooks()
+        public Task<List<Book>> GetAllBooks()
         {
-            var books = new List<BookEntity>();
-            books = _context.Books.ToList();
+            var books = new List<Book>();
+            books = _context.Book.ToList();
             return Task.FromResult(books);
         }
 
         public async Task<Book?> GetBookById(int id)
         {
-            var book = await _context.Books.FindAsync(id);
-            return (Book)book;
+            var book = await _context.Book.FindAsync(id);
+            return book;
         }
 
-        public async Task<List<BookEntity>> GetBooksByTitle(string title)
+        public async Task<List<Book>> GetBooksByTitle(string title)
         {
-            var fileredBooks = await _context.Books
+            var fileredBooks = await _context.Book
                 .Where(e => e.Title != null)
                 .Where(e => e.Title!.ToLower().Contains(title.ToLower()))
                 .ToListAsync();
@@ -73,7 +74,7 @@ namespace LibStory.Infrastructure
         {
             try
             {
-                _context.Books.Update((BookEntity)book);
+                _context.Book.Update(book);
             }
             catch (Exception ex)
             {

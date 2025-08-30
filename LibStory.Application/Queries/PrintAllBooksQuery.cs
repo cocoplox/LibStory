@@ -1,4 +1,5 @@
-﻿using LibStory.Application.Interfaces;
+﻿using LibStory.Application.DTOs;
+using LibStory.Application.Interfaces;
 using LibStory.Domain.Models;
 using MediatR;
 using System;
@@ -22,7 +23,7 @@ namespace LibStory.Application.Queries
             }
             public async Task<bool> Handle(PrintAllBooksQuery request, CancellationToken cancellationToken)
             {
-                List<Book> books = await _bookService.GetAllBooks();
+                List<BookDTO> books = await _bookService.GetAllBooks();
                 _manager.PrintBooks(books);
                 return true;
 

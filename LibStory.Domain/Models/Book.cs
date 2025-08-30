@@ -1,31 +1,27 @@
-﻿using LibStory.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LibStory.Domain.Models
+namespace LibStory.Domain.Models;
+
+public partial class Book
 {
-    public class Book
-    {
-        public string? Title { get; set; }
-        public string? Sinopsis { get; set; }
-        public int? Pages { get; set; }
-        public int? Year { get; set; }
-        public string? Author { get; set; }
-        public string? Publisher { get; set; }
-        public float? Rating { get; set; }
-        public static explicit operator Book(BookEntity entity) => new Book
-        {
-            Title = entity.Title,
-            Sinopsis = entity.Sinopsis,
-            Pages = entity.Pages,
-            Year = entity.Year,
-            Author = entity.Author,
-            Publisher = entity.Publisher,
-            Rating = entity.Rating
-        }   ;
-    }
+    public int Id { get; set; }
+
+    public string? Title { get; set; }
+
+    public string? Sinopsis { get; set; }
+
+    public int? Pages { get; set; }
+
+    public int? Year { get; set; }
+
+    public string? Author { get; set; }
+
+    public string? Publisher { get; set; }
+
+    public double? Rating { get; set; }
+
+    public DateTime? CreatedAt { get; set; }
+
+    public virtual ICollection<Record> Record { get; set; } = new List<Record>();
 }

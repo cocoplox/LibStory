@@ -3,8 +3,8 @@ using LibStory.Application;
 using LibStory.Application.Helpers;
 using LibStory.Application.Interfaces;
 using LibStory.Application.Queries;
+using LibStory.Domain.Data;
 using LibStory.Infrastructure;
-using LibStory.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,13 +23,13 @@ public class Program
         services.AddSingleton<IMainMenu, ConsoleMenu>();
         services.AddSingleton<App>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<AppLayerDummy>());
-        services.AddDbContext<SqlLiteDbContext>(opt =>
+        services.AddDbContext<SqlLiteContext>(opt =>
             opt.UseSqlite($"Data Source={PathHelper.GetDbPath()}"));
 
         var serviceProvider = services.BuildServiceProvider();
 
         var app = serviceProvider.GetService<App>();
-        var dbContext = serviceProvider.GetService<SqlLiteDbContext>();
+        var dbContext = serviceProvider.GetService<SqlLiteContext>();
         dbContext?.Database.EnsureCreated();
         app.Run();
 

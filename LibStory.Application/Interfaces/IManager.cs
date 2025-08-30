@@ -1,4 +1,5 @@
-﻿using LibStory.Domain.Enums;
+﻿using LibStory.Application.DTOs;
+using LibStory.Domain.Enums;
 using LibStory.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace LibStory.Application.Interfaces
 {
     public interface IManager
     {
-        Book CreateBook();
-        void PrintBook(Book book);
-        void PrintBooks(List<Book> books);
+        BookDTO CreateBook();
+        void PrintBook(BookDTO book);
+        void PrintBooks(List<BookDTO> books);
     }
 }
