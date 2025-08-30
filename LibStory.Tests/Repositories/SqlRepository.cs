@@ -9,7 +9,9 @@ namespace LibStory.Tests.Repositories
     [TestFixture]
     public class SqlRepository
     {
+#pragma warning disable NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
         private SqlLiteDbContext _context;
+#pragma warning restore NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
         private IBookRepository _bookRepository;
         [SetUp]
         public void Setup()
