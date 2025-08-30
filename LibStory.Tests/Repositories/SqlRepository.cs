@@ -1,7 +1,7 @@
 ﻿using LibStory.Application.Interfaces;
-using LibStory.Domain.Entities;
+using LibStory.Domain.Data;
+using LibStory.Domain.Models;
 using LibStory.Infrastructure;
-using LibStory.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibStory.Tests.Repositories
@@ -10,19 +10,19 @@ namespace LibStory.Tests.Repositories
     public class SqlRepository
     {
 #pragma warning disable NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
-        private SqlLiteDbContext _context;
+        private SqlLiteContext _context;
 #pragma warning restore NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
         private IBookRepository _bookRepository;
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<SqlLiteDbContext>()
+            var options = new DbContextOptionsBuilder<SqlLiteContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
-            _context = new SqlLiteDbContext(options);
+            _context = new SqlLiteContext(options);
 
             //Añadimos Libros de prueba al contexto
-            _context.Books.Add(new BookEntity
+            _context.Book.Add(new Book 
             {
                 Title = "El Camino de los reyes",
                 Sinopsis = "Muy bueno",
@@ -32,7 +32,7 @@ namespace LibStory.Tests.Repositories
                 Rating = 10f,
                 Year = 2015
             });
-            _context.Books.Add(new BookEntity
+            _context.Book.Add(new Book
             {
                 Title = "El Nombre del Viento",
                 Sinopsis = "Muy bueno",

@@ -1,4 +1,5 @@
-﻿using LibStory.Domain.Models;
+﻿using LibStory.Application.DTOs;
+using LibStory.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace LibStory.Application.Interfaces
 {
     public interface IBookService
     {
-        Task<bool> SaveBook(Book book);
-        Task<List<Book>> GetAllBooks();
-        Task<IEnumerable<Book?>> GetBookByTitle(string title);
+        Task<bool> SaveBook(BookDTO book);
+        Task<List<BookDTO>> GetAllBooks();
+        Task<IEnumerable<BookDTO?>> GetBookByTitle(string title);
 
     }
 }

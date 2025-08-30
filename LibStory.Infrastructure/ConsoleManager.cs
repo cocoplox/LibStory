@@ -1,11 +1,12 @@
-﻿using LibStory.Application.Interfaces;
+﻿using LibStory.Application.DTOs;
+using LibStory.Application.Interfaces;
 using LibStory.Domain.Models;
 
 namespace LibStory.Infrastructure
 {
     public class ConsoleManager : IManager
     {
-        public Book CreateBook()
+        public BookDTO CreateBook()
         {
             string title = GetBasicInfo("Title");
             string sinapsis = GetBasicInfo("Sinapsis");
@@ -15,7 +16,7 @@ namespace LibStory.Infrastructure
             float rating = GetBasicNumberInfo("Rating");
             float year = GetBasicNumberInfo("Year");
 
-            Book book = new Book
+            BookDTO book = new BookDTO 
             {
                 Title = title,
                 Sinopsis = sinapsis,
@@ -28,7 +29,7 @@ namespace LibStory.Infrastructure
             return book;
         }
 
-        public void PrintBook(Book book)
+        public void PrintBook(BookDTO book)
         {
             Console.WriteLine("Book Details:");
             Console.WriteLine($"Book Title:{book.Title}");
@@ -39,7 +40,7 @@ namespace LibStory.Infrastructure
             Console.WriteLine(book.Publisher != null ? $"Book Publisher:{book.Publisher}" : "Book Publisher: N/A");
         }
 
-        public void PrintBooks(List<Book> books)
+        public void PrintBooks(List<BookDTO> books)
         {
             books.ForEach(e =>
             {

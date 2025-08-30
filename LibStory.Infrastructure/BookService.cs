@@ -1,4 +1,6 @@
-﻿using LibStory.Application.Interfaces;
+﻿using LibStory.Application.DTOs;
+using LibStory.Application.Interfaces;
+using LibStory.Application.Maps;
 using LibStory.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -16,9 +18,9 @@ namespace LibStory.Infrastructure
         {
             _bookRepository = bookRepository;
         }
-        public async Task<bool> SaveBook(Book book)
+        public async Task<bool> SaveBook(BookDTO book)
         {
-            bool correct = await _bookRepository.AddBookAsync(book);
+            bool correct = await _bookRepository.AddBookAsync(BookMapper.ToEntity(book));
             if (!correct)
             {
                 Console.WriteLine("Error saving the book, please try again.");
@@ -27,16 +29,16 @@ namespace LibStory.Infrastructure
             Console.WriteLine("Book created successfully.");
             return correct;
           }
-        public async Task<List<Book>> GetAllBooks()
+        public async Task<List<BookDTO>> GetAllBooks()
         {
             var books = await _bookRepository.GetAllBooks();
-            return books.Select(e => (Book)e).ToList();
+            return books.Select(e => BookMapper.ToDto(e)).ToList();
         }
 
-        public async Task<IEnumerable<Book?>> GetBookByTitle(string title)
+        public async Task<IEnumerable<BookDTO?>> GetBookByTitle(string title)
         {
             var booksEntities = await _bookRepository.GetBooksByTitle(title);
-            return  booksEntities.Select(e => (Book)e);
+            return  booksEntities.Select(e => BookMapper.ToDto(e));
         }
     }
 }

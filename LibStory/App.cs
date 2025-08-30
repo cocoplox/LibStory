@@ -31,9 +31,9 @@ namespace LibStory
                 case MenuChoice.CreateBook:
                     await _mediatr.Send(new AddBookQuery());
                     break;
-                case MenuChoice.PrintBook:
-                    await _mediatr.Send(new PrintBookQuery() { bookToPrint = new Domain.Models.Book() { Title = "Test" } });
-                    break;
+                //case MenuChoice.PrintBook:
+                //    await _mediatr.Send(new PrintBookQuery() { bookToPrint = new Domain.Models.Book() { Title = "Test" } });
+                //    break;
                 case MenuChoice.ShowAllBooks:
                     await _mediatr.Send(new PrintAllBooksQuery());
                     break;

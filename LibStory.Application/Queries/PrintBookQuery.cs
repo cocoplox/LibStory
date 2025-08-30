@@ -1,4 +1,5 @@
-﻿using LibStory.Application.Interfaces;
+﻿using LibStory.Application.DTOs;
+using LibStory.Application.Interfaces;
 using LibStory.Domain.Models;
 using MediatR;
 using System;
@@ -13,7 +14,7 @@ namespace LibStory.Application.Queries
 {
     public class PrintBookQuery : IRequest<bool>
     {
-        public Book bookToPrint { get; set; }
+        public BookDTO bookToPrint { get; set; }
         public class PrintBookQueryResponse : IRequestHandler<PrintBookQuery, bool>
         {
             private readonly IManager _manager;
