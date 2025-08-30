@@ -9,7 +9,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibStory.Infrastructure
+namespace LibStory.Infrastructure.Services
 {
     public class BookService : IBookService 
     {
@@ -20,7 +20,7 @@ namespace LibStory.Infrastructure
         }
         public async Task<bool> SaveBook(BookDTO book)
         {
-            bool correct = await _bookRepository.AddBookAsync(BookMapper.ToEntity(book));
+            bool correct = await _bookRepository.AddBookAsync(book.ToEntity());
             if (!correct)
             {
                 Console.WriteLine("Error saving the book, please try again.");
@@ -32,13 +32,13 @@ namespace LibStory.Infrastructure
         public async Task<List<BookDTO>> GetAllBooks()
         {
             var books = await _bookRepository.GetAllBooks();
-            return books.Select(e => BookMapper.ToDto(e)).ToList();
+            return books.Select(e => e.ToDto()).ToList();
         }
 
         public async Task<IEnumerable<BookDTO?>> GetBookByTitle(string title)
         {
             var booksEntities = await _bookRepository.GetBooksByTitle(title);
-            return  booksEntities.Select(e => BookMapper.ToDto(e));
+            return  booksEntities.Select(e => e.ToDto());
         }
     }
 }

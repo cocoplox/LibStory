@@ -2,7 +2,7 @@
 using LibStory.Application.Interfaces;
 using LibStory.Domain.Models;
 
-namespace LibStory.Infrastructure
+namespace LibStory.Infrastructure.Services
 {
     public class ConsoleManager : IManager
     {
