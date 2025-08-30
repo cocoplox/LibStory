@@ -5,7 +5,7 @@ using LibStory.Domain.Data;
 using LibStory.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibStory.Infrastructure
+namespace LibStory.Infrastructure.Repositories
 {
     public class SqlLiteRepository : IBookRepository
     {
