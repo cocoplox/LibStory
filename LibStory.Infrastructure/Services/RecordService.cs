@@ -1,4 +1,5 @@
-﻿using LibStory.Application.DTOs;
+﻿using AutoMapper;
+using LibStory.Application.DTOs;
 using LibStory.Application.Interfaces;
 using LibStory.Domain.Interfaces;
 using LibStory.Domain.Models;
@@ -13,9 +14,11 @@ namespace LibStory.Infrastructure.Services
     public class RecordService : IRecordService
     {
         private readonly IRecordRepository _recordRepository;
-        public RecordService(IRecordRepository recordRepository)
+        private readonly IMapper _mapper;
+        public RecordService(IRecordRepository recordRepository, IMapper mapper)
         {
             _recordRepository = recordRepository;
+            _mapper = mapper;
         }
         public async Task<bool> AddRecordAsync(RecordDTO recordDto)
         {
@@ -29,9 +32,12 @@ namespace LibStory.Infrastructure.Services
             var response = await _recordRepository.AddRecordAsync(mappedRecord);
             return response;
         }
-        public async Task<IEnumerable<RecordDTO>> GetAllRecordsAsync()
+        public async Task<List<RecordDTO>> GetAllRecordsAsync()
         {
-             var entities = await _recordRepository.GetAllRecordsAsync();
+            var QRecords = await _recordRepository.GetAllRecordsAsync();
+            var records = _mapper.Map<List<RecordDTO>>(QRecords.ToList());
+            return records;
+            
         }
     }
 }

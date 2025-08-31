@@ -30,5 +30,10 @@ namespace LibStory.Infrastructure.Repositories
             }
             return Task.FromResult(true);
         }
+
+        public async Task<IQueryable<Record>> GetAllRecordsAsync()
+        {
+            return await Task.FromResult(_context.Record.Where(e => e.Id > 0));
+        }
     }
 }

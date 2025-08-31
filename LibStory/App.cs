@@ -50,7 +50,14 @@ namespace LibStory
         {
             var title = _manager.GetResponse("Introduce el titulo del libro a buscar: ");
             var response = await _mediatr.Send(new BookByTitleQuery() { Title = title });
+            if (response == null || !response.Any())
+            {
+                _manager.PrinteMessage($"No se encontraron libros con el titulo: {title}");
+                return;
+            }
+
             _manager.PrintBooks(response);
+            
         }
         private async Task CreateRecordAsync()
         {

@@ -28,7 +28,10 @@ public class Program
         services.AddSingleton<IRecordRepository, RecordRepository>();
         services.AddTransient<IManager, ConsoleManager>();
         services.AddSingleton<IMainMenu, ConsoleMenu>();
-        //services.AddAutoMapper(cfg => cfg.AddProfile<BookMapper>());
+        services.AddAutoMapper(cfg =>
+        {
+            AppDomain.CurrentDomain.GetAssemblies();
+        });
         services.AddSingleton<App>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<AppLayerDummy>());
         services.AddDbContext<SqlLiteContext>(opt =>

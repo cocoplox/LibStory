@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using LibStory.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,7 +36,7 @@ public partial class SqlLiteContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("current_timestamp")
                 .HasColumnType("datetime");
-            entity.Property(e => e.PageDiff).HasComputedColumnSql();
+            entity.Property(e => e.PageDiff).HasComputedColumnSql($"{nameof(LibStory.Domain.Models.Record.PageTo)}-{nameof(LibStory.Domain.Models.Record.PageFrom)}");
 
             entity.HasOne(d => d.Book).WithMany(p => p.Record)
                 .HasForeignKey(d => d.BookId)

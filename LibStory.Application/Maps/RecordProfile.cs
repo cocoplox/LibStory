@@ -9,8 +9,7 @@ namespace LibStory.Application.Maps
     {
         public RecordProfile()
         {
-            CreateMap<Record, RecordDTO>()
-                .ForMember(source => source.PageFrom, options => options.MapFrom(dest => dest.PageFrom));
+            CreateMap<Record, RecordDTO>();
         }
     }
 }
