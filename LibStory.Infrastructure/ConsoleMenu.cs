@@ -18,6 +18,7 @@ namespace LibStory.Infrastructure
             Console.WriteLine("3. PrintBook");
             Console.WriteLine("4. PrintAllBooks");
             Console.WriteLine("5. SearchBook");
+            Console.WriteLine("6. Create Record");
         }
 
         public MenuChoice GetChoice()

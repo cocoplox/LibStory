@@ -10,5 +10,6 @@ namespace LibStory.Domain.Interfaces
     public interface IRecordRepository
     {
         Task<bool> AddRecordAsync(Record record);
+        Task<IEnumerable<Record>> GetAllRecordsAsync();
     }
 }

@@ -2,13 +2,7 @@
 using LibStory.Application.Interfaces;
 using LibStory.Application.Queries;
 using LibStory.Domain.Enums;
-using LibStory.Infrastructure;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibStory
 {
@@ -37,10 +31,7 @@ namespace LibStory
             _menu.DrawMainMenu();
             var choice = _menu.GetChoice();
             _menuActions.TryGetValue(choice, out var action);
-            if(action is not null)
-            {
-                await action();
-            }
+            await action();
         }
         private async Task CreateBookAsync()
         {
@@ -63,7 +54,28 @@ namespace LibStory
         }
         private async Task CreateRecordAsync()
         {
-            //TODO
+            //TODO -> IMPORTANTE manejo de excepciones (Libro no encontrado...)
+            //TODO -> Mostrrar Libros antes de pedir nada, filtrar entre nombre o id
+            //DONE -> filtrar por nombre
+            await ShowAllBooksAsync();
+            var title = _manager.GetResponse("Introduce el titulo del libro que estas leyendo: ");
+            int PageFrom = 0;
+            int PageTo = 0;
+            do
+            {
+                 PageFrom = (int)_manager.GetNumericResponse("Introduce la pagina desde la que has leido: ");
+                 PageTo = (int)_manager.GetNumericResponse("Introduce la pagina hasta la que has leido: ");
+                if(PageTo <= PageFrom)
+                    _manager.PrinteMessage("La pagina hasta la que has leido debe ser mayor que la pagina desde la que has leido");
+                else
+                    break;
+            }
+            while (true);
+            var response = await _mediatr.Send(new AddRecordCommand(){ BookTitle = title, PageFrom = PageFrom, PageTo = PageTo });
+            if (response)
+                _manager.PrinteMessage("Historial actualizado");
+            else
+                _manager.PrinteMessage("Hubo un error al actualizar el historial");
         }
     }
 }

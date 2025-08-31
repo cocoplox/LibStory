@@ -2,6 +2,7 @@
 using LibStory.Application;
 using LibStory.Application.Helpers;
 using LibStory.Application.Interfaces;
+using LibStory.Application.Maps;
 using LibStory.Application.Queries;
 using LibStory.Domain.Data;
 using LibStory.Domain.Interfaces;
@@ -21,10 +22,13 @@ public class Program
         var services = new ServiceCollection();
         services.AddLogging();
         services.AddTransient<IBookService, BookService>();
+        services.AddTransient<IRecordService, RecordService>();
         services.AddTransient<IBookRepository, SqlLiteRepository>();
+        services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddSingleton<IRecordRepository, RecordRepository>();
         services.AddTransient<IManager, ConsoleManager>();
         services.AddSingleton<IMainMenu, ConsoleMenu>();
-        services.AddSingleton<IUserRepository, UserRepository>();
+        //services.AddAutoMapper(cfg => cfg.AddProfile<BookMapper>());
         services.AddSingleton<App>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<AppLayerDummy>());
         services.AddDbContext<SqlLiteContext>(opt =>

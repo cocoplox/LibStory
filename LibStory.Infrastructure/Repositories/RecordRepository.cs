@@ -21,6 +21,7 @@ namespace LibStory.Infrastructure.Repositories
             try
             {
                 _context.Record.Add(record);
+                _context.SaveChanges();
             }
             catch(Exception ex)
             {

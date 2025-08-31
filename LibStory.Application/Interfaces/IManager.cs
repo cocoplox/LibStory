@@ -17,6 +17,7 @@ namespace LibStory.Application.Interfaces
         RecordDTO CreateRecord();
         void PrinteMessage(string message);
         string GetResponse(string message);
+        float GetNumericResponse(string message);
         
     }
 }

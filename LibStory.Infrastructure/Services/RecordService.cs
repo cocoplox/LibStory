@@ -17,11 +17,21 @@ namespace LibStory.Infrastructure.Services
         {
             _recordRepository = recordRepository;
         }
-        public async Task<bool> AddRecordAsync(Record record)
+        public async Task<bool> AddRecordAsync(RecordDTO recordDto)
         {
-            var response = await _recordRepository.AddRecordAsync(record);
+            var mappedRecord = new Record
+            {
+                BookId = recordDto.BookId,
+                UserId = recordDto.UserId,
+                PageFrom = recordDto.PageFrom,
+                PageTo = recordDto.PageTo,
+            };
+            var response = await _recordRepository.AddRecordAsync(mappedRecord);
             return response;
-
+        }
+        public async Task<IEnumerable<RecordDTO>> GetAllRecordsAsync()
+        {
+             var entities = await _recordRepository.GetAllRecordsAsync();
         }
     }
 }

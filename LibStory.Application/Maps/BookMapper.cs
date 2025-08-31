@@ -15,6 +15,7 @@ namespace LibStory.Application.Maps
             if (book == null) return null;
             return new BookDTO
             {
+                Id = book.Id,
                 Title = book.Title,
                 Sinopsis = book.Sinopsis,
                 Pages = book.Pages,

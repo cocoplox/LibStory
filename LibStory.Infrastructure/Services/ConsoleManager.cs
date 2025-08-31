@@ -34,6 +34,21 @@ namespace LibStory.Infrastructure.Services
             throw new NotImplementedException();
         }
 
+        public float GetNumericResponse(string message)
+        {
+            Console.WriteLine(message);
+            do
+            {
+                var input = Console.ReadLine();
+                if (float.TryParse(input, out float choice))
+                {
+                    return choice;
+                }
+                Console.WriteLine("Invalid number, please try again.");
+            }
+            while (true);
+        }
+
         public string GetResponse(string message)
         {
             Console.WriteLine(message);
